@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página Inicial</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>  
+        <span class="title">Lojas Dinotop</span>
+        <form action="/create" method="POST">
+            <input name="title" placeholder="Nome">
+            <input name="price" placeholder="Preço">
+            <button type="submit">
+             <img src="{{ url_for('static', filename='mapas-e-bandeiras.png') }}">
+            </button>
+        </form>
+    </header>  
+    
+    <ul class="content">
+        {% for product in products %}
+            <li class="card">
+            <form action="/update/{{ product.id }}" method="POST">
+                <input name="title" value="{{ product.title }}">
+                <input name="price" value="{{ product['price'] }}">
+            </form>    
+              <div class="box">  
+                <button type="submit">✏️</button>
+                <a href="/delete/{{ product.id }}">🗑️</a>
+              </div>
+                
+            
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
